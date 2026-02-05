@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% block title %}Đặt hàng{% endblock %}
+
+{% block content_wrapper %}
+<div class="container mt-4">
+    <h3>Tạo đơn đặt hàng</h3>
+
+    {% if pharmacy %}
+        <div class="alert alert-success">
+            <strong>Chi nhánh:</strong> {{ pharmacy.name }} <br>
+            <strong>Khoảng cách:</strong> {{ distance }} km <br>
+            <strong>Phí ship:</strong> {{ shipping_fee }} VNĐ
+        </div>
+    {% else %}
+        <a href="{% url 'map_view' %}" class="btn btn-success">
+            📍 Chọn chi nhánh đặt hàng
+        </a>
+    {% endif %}
+    
+
+    {% if pharmacy %}
+    <form method="post" class="mt-3">
+        {% csrf_token %}
+        <input type="hidden" name="shipping_fee" value="{{ shipping_fee }}">
+
+        <div class="mb-3">
+            <label>Loại thuốc</label>
+            <select name="medicine" class="form-control" required>
+                {% for m in medicines %}
+                    <option value="{{ m.id }}" data-price="{{ m.price }}">
+                        {{ m.name }} ({{ m.price }} VNĐ)
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <label>Số lượng</label>
+            <input type="number" name="quantity" value="1" min="1" class="form-control">
+        </div>
+
+        <div class="mb-3">
+            <label>Phương thức thanh toán</label>
+            <input class="form-control" value="Thanh toán khi nhận hàng (COD)" disabled>
+        </div>
+
+        <div class="mb-3">
+            <strong>Thành tiền:</strong>
+            <span id="total">0</span> VNĐ
+        </div>
+
+        <button type="button"
+                class="btn btn-success"
+                data-url="{% url 'home' %}" 
+                onclick="window.location.href=this.getAttribute('data-url')">
+            Xác nhận đặt hàng
+        </button>
+    </form>
+    {% endif %}
+</div>
+
+<script>
+const qty = document.querySelector('[name="quantity"]');
+const med = document.querySelector('[name="medicine"]');
+const total = document.getElementById('total');
+const ship = parseInt("{{ shipping_fee|default:0 }}");
+function calc() {
+    if (!med) return;
+    const price = parseInt(med.selectedOptions[0].dataset.price);
+    const q = parseInt(qty.value);
+    total.innerText = (price * q + ship).toLocaleString();
+}
+
+qty?.addEventListener('input', calc);
+med?.addEventListener('change', calc);
+calc();
+</script>
+
+{% endblock %}

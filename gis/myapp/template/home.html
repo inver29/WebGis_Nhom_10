@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+{% block title %} Cửa hàng dược phẩm trực tuyến {% endblock %}
+
+{% block content %}
+
+<style>
+.hero-section {
+    position: relative;
+    height: 60vh;
+    background-image: url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?q=80&w=1920');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        135deg,
+        rgba(40, 167, 69, 0.85),
+        rgba(25, 135, 84, 0.75)
+    );
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 20px;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    line-height: 1.3;
+    margin-bottom: 15px;
+}
+
+.hero-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.95;
+    margin-bottom: 30px;
+}
+
+.hero-actions .btn {
+    padding: 14px 26px;
+    font-size: 1.05rem;
+    border-radius: 50px;
+    margin: 5px;
+}
+
+.features-section {
+    padding: 80px 0;
+    background: #f8f9fa;
+}
+
+.feature-box {
+    background: white;
+    border-radius: 16px;
+    padding: 35px 25px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    transition: 0.3s;
+    height: 100%;
+}
+
+.feature-box:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+}
+
+.feature-icon {
+    font-size: 3.2rem;
+    margin-bottom: 15px;
+}
+
+.feature-box h4 {
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.cta-section {
+    background: linear-gradient(135deg, #198754, #28a745);
+    padding: 70px 20px;
+    text-align: center;
+    color: white;
+}
+
+.cta-section h2 {
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.cta-section p {
+    font-size: 1.1rem;
+    opacity: 0.95;
+    margin-bottom: 25px;
+}
+</style>
+
+<!-- HERO -->
+<div class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1 class="hero-title">
+            Tra cứu Nhà thuốc <br> & Mua thuốc Online
+        </h1>
+        <p class="hero-subtitle">
+            Tìm nhà thuốc gần bạn · Kiểm tra tồn kho · Đặt thuốc & giao tận nơi
+        </p>
+
+        <div class="hero-actions">
+            <a href="{% url 'map_view' %}" class="btn btn-light text-success font-weight-bold shadow">
+                <i class="fas fa-map-marked-alt"></i> Tìm nhà thuốc gần bạn
+            </a>
+            <a href="{% url 'product_list' %}" class="btn btn-outline-light font-weight-bold shadow">
+                <i class="fas fa-pills"></i> Xem sản phẩm
+            </a>
+        </div>
+    </div>
+</div>
+
+<!-- FEATURES -->
+<div class="features-section">
+    <div class="container">
+        <div class="row text-center g-4">
+
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <i class="fas fa-search-location text-success feature-icon"></i>
+                    <h4>Hệ thống chi nhánh</h4>
+                    <p>
+                        Hiển thị trực quan vị trí các chi nhánh nhà thuốc
+                        trên bản đồ GIS.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <i class="fas fa-calculator text-success feature-icon"></i>
+                    <h4>Tính phí giao hàng</h4>
+                    <p>
+                        Tự động tính khoảng cách, thời gian và phí ship
+                        dựa trên vị trí thực tế.
+                    </p>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="feature-box">
+                    <i class="fas fa-pills text-success feature-icon"></i>
+                    <h4>Tra cứu thuốc</h4>
+                    <p>
+                        Kiểm tra tồn kho theo từng chi nhánh,
+                        đảm bảo mua đúng nơi – đúng thuốc.
+                    </p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- CTA -->
+<div class="cta-section">
+    <h2>Bạn đang cần mua thuốc ngay?</h2>
+    <p>
+        Chọn chi nhánh gần nhất và đặt thuốc chỉ trong vài giây.
+    </p>
+    <a href="{% url 'product_list' %}" class="btn btn-light text-success font-weight-bold px-4 py-2">
+        <i class="fas fa-shopping-cart"></i> Đặt thuốc ngay
+    </a>
+</div>
+
+{% endblock %}
